@@ -18,34 +18,24 @@ const createPost = (post) => {
   });
 };
 
-const getPosts = () => {
+async function getPosts() {
   // code
-  let output = "";
+  try {
+    const post3 = await createPost({ title: "post 3" });
+    const post4 = await createPost({ title: "post 4" });
+    const post5 = await createPost({ title: "post 5" });
+    console.log(post5);
 
-  posts.forEach((post) => {
-    output += `<li>${post.title}</li>`;
-  });
+    let output = "";
 
-  ul.innerHTML = output;
-};
+    posts.forEach((post) => {
+      output += `<li>${post.title}</li>`;
+    });
 
-createPost({ title: "post 3" })
-  .then((data) => {
-    console.log(data);
-    return createPost({ title: "post 4" });
-  })
-  .then((data) => {
-    console.log(data);
-    return createPost({ title: "post 5" });
-  })
-  .then((data) => {
-    console.log(data);
-    return createPost({ title: "post 6" });
-  })
-  .then((data) => {
-    console.log(data);
-    getPosts();
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+    ul.innerHTML = output;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+getPosts();
