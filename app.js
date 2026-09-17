@@ -1,18 +1,29 @@
 const btnPost = document.querySelector("#post");
 const btnPosts = document.querySelector("#posts");
 const ul = document.querySelector("ul");
+const inputNumber = document.querySelector("input");
 
 btnPost.onclick = () => {
   // code
   const xhr = new XMLHttpRequest();
 
-  xhr.open("GET", "post.json");
+  xhr.open(
+    "GET",
+    `https://jsonplaceholder.typicode.com/posts/${inputNumber.value}`,
+  );
 
   xhr.onload = () => {
-    const post = JSON.parse(xhr.responseText)[0];
-    const liCreate = `<li>${post.title}</li>`;
+    if (inputNumber.value) {
+      // code
+      const post = JSON.parse(xhr.responseText);
+      const liCreate = `<li>${post.title}</li>`;
 
-    xhr.status === 200 ? (ul.innerHTML = liCreate) : console.log("Error");
+      xhr.status === 200
+        ? (ul.innerHTML = liCreate)
+        : console.log("Error not 200");
+    } else {
+      console.log("Error inputNumber.value");
+    }
   };
 
   xhr.send();
@@ -21,7 +32,7 @@ btnPost.onclick = () => {
 btnPosts.onclick = () => {
   // code
   const xhr = new XMLHttpRequest();
-  xhr.open("GET", "posts.json");
+  xhr.open("GET", "https://jsonplaceholder.typicode.com/posts");
 
   xhr.onload = () => {
     const posts = JSON.parse(xhr.responseText);
