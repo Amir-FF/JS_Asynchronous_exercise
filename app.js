@@ -1,49 +1,29 @@
-const btnPost = document.querySelector("#post");
-const btnPosts = document.querySelector("#posts");
+const btn = document.querySelector("button");
 const ul = document.querySelector("ul");
-const inputNumber = document.querySelector("input");
+let num = 1;
 
-btnPost.onclick = () => {
+btn.onclick = () => {
   // code
   const xhr = new XMLHttpRequest();
+  const title = document.querySelector("#title").value;
+  const body = document.querySelector("#body").value;
+  const post = { userId: num, title, body };
 
-  xhr.open(
-    "GET",
-    `https://jsonplaceholder.typicode.com/posts/${inputNumber.value}`,
-  );
+  xhr.open("POST", "https://jsonplaceholder.typicode.com/posts");
 
-  xhr.onload = () => {
-    if (inputNumber.value) {
-      // code
-      const post = JSON.parse(xhr.responseText);
-      const liCreate = `<li>${post.title}</li>`;
-
-      xhr.status === 200
-        ? (ul.innerHTML = liCreate)
-        : console.log("Error not 200");
-    } else {
-      console.log("Error inputNumber.value");
-    }
-  };
-
-  xhr.send();
-};
-
-btnPosts.onclick = () => {
-  // code
-  const xhr = new XMLHttpRequest();
-  xhr.open("GET", "https://jsonplaceholder.typicode.com/posts");
+  xhr.setRequestHeader("content-type", "application/JSON");
 
   xhr.onload = () => {
-    const posts = JSON.parse(xhr.responseText);
-    let liCreates = "";
+    // code
+    const post = JSON.parse(xhr.responseText);
+    const liCreate = `<li>${post.title}</li>`;
 
-    posts.forEach((post) => {
-      liCreates += `<li>${post.title}</li>`;
-    });
-
-    xhr.status === 200 ? (ul.innerHTML = liCreates) : console.log("Error");
+    xhr.status === 201
+      ? (ul.innerHTML = liCreate)
+      : console.log("Error not 201");
   };
 
-  xhr.send();
+  xhr.send(JSON.stringify(post));
+
+  num++;
 };
