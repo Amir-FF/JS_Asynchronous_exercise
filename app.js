@@ -6,9 +6,13 @@ loading.classList.add("d-none");
 // btn.onclick = () => {
 //   loading.classList.remove("d-none");
 
-//   fetch("https://jsonplaceholder.typicode.com/posts")
+//   fetch("https://jsonplaceholder.typicode.com/wwdawd")
 //     .then((res) => {
-//       return res.json();
+//       if (res.ok) {
+//         return res.json();
+//       } else {
+//         throw new Error(res.status);
+//       }
 //     })
 //     .then((posts) => {
 //       // codes
@@ -21,24 +25,35 @@ loading.classList.add("d-none");
 
 //       ul.innerHTML = output;
 //     })
-//     .catch((err) => console.log(err));
+//     .catch((err) => {
+//       loading.classList.add("d-none");
+//       ul.innerHTML = err;
+//     });
 // };
 
 btn.onclick = async function () {
   try {
+    // code
     loading.classList.remove("d-none");
-    const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-    const posts = await res.json();
 
-    loading.classList.add("d-none");
+    const res = await fetch("https://jsonplaceholder.typicode.com/12e");
 
-    let output = "";
-    posts.forEach((post) => {
-      output += `<li>${post.title}</li>`;
-    });
+    if (res.ok) {
+      const posts = await res.json();
 
-    ul.innerHTML = output;
+      loading.classList.add("d-none");
+
+      let output = "";
+      posts.forEach((post) => {
+        output += `<li>${post.title}</li>`;
+      });
+
+      ul.innerHTML = output;
+    } else {
+      throw new Error(res.status);
+    }
   } catch (err) {
-    console.log(err);
+    loading.classList.add("d-none");
+    ul.innerHTML = err;
   }
 };
