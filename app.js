@@ -1,12 +1,18 @@
 const btn = document.querySelector("button");
 const ul = document.querySelector("ul");
-const loading = document.querySelector("#app div");
-loading.classList.add("d-none");
+let num = 1;
 
 // btn.onclick = () => {
-//   loading.classList.remove("d-none");
+//   // code
+//   const title = document.querySelector("#title").value;
+//   const body = document.querySelector("#body").value;
+//   const post = { userId: num, title, body };
 
-//   fetch("https://jsonplaceholder.typicode.com/wwdawd")
+//   fetch("https://jsonplaceholder.typicode.com/posts", {
+//     method: "POST",
+//     body: JSON.stringify(post),
+//     headers: { "content-type": "application/JSON" },
+//   })
 //     .then((res) => {
 //       if (res.ok) {
 //         return res.json();
@@ -14,46 +20,46 @@ loading.classList.add("d-none");
 //         throw new Error(res.status);
 //       }
 //     })
-//     .then((posts) => {
-//       // codes
-//       loading.classList.add("d-none");
+//     .then((post) => {
+//       // code
+//       console.log(post);
 
-//       let output = "";
-//       posts.forEach((post) => {
-//         output += `<li>${post.title}</li>`;
-//       });
+//       const liCreate = `<li>${post.title}</li>`;
+//       ul.innerHTML = liCreate;
 
-//       ul.innerHTML = output;
+//       num++;
 //     })
 //     .catch((err) => {
-//       loading.classList.add("d-none");
-//       ul.innerHTML = err;
+//       console.log(err);
 //     });
 // };
 
 btn.onclick = async function () {
+  const title = document.querySelector("#title").value;
+  const body = document.querySelector("#body").value;
+  const post = { userId: num, title, body };
+
   try {
     // code
-    loading.classList.remove("d-none");
-
-    const res = await fetch("https://jsonplaceholder.typicode.com/12e");
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
+      method: "POST",
+      body: JSON.stringify(post),
+      headers: { "content-type": "application/JSON" },
+    });
 
     if (res.ok) {
-      const posts = await res.json();
+      const post = await res.json();
 
-      loading.classList.add("d-none");
+      console.log(post);
 
-      let output = "";
-      posts.forEach((post) => {
-        output += `<li>${post.title}</li>`;
-      });
+      const liCreate = `<li>${post.title}</li>`;
+      ul.innerHTML = liCreate;
 
-      ul.innerHTML = output;
+      num++;
     } else {
       throw new Error(res.status);
     }
   } catch (err) {
-    loading.classList.add("d-none");
-    ul.innerHTML = err;
+    console.log(err);
   }
 };

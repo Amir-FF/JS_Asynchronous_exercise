@@ -11,15 +11,28 @@
       crossorigin="anonymous"
     />
   </head>
-  <body>
-    <div id="app" class="m-4">
+  <body class="m-4">
+    <div id="app">
       <!-- code -->
-      <button type="button" class="btn btn-success">posts</button>
+      <div class="mb-3 w-25">
+        <label for="title" class="form-label"> Post title </label>
+        <input
+          type="name"
+          class="form-control"
+          id="title"
+          placeholder="title"
+        />
+      </div>
+
+      <div class="mb-3 w-25">
+        <label for="body" class="form-label"> Post body </label>
+        <input type="name" class="form-control" id="body" placeholder="body" />
+      </div>
+
+      <button type="button" class="btn btn-success">submit</button>
+
       <br /><br />
 
-      <div class="spinner-border text-success" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
       <ul></ul>
     </div>
 
