@@ -1,33 +1,40 @@
 const btn = document.querySelector("button");
-const ul = document.querySelector("ul");
-let num = 1;
+const divChooseFile = document.querySelector("#choose-file");
+const divPreview = document.querySelector("#preview");
+
+divChooseFile.onchange = () => {
+  const reader = new FileReader();
+  const img = document.querySelector("#choose-file").files[0];
+
+  reader.readAsDataURL(img);
+
+  reader.onload = (event) => {
+    divPreview.innerHTML = `<img src=${event.target.result} width="200" class="rounded" alt="Error...">`;
+  };
+};
 
 // btn.onclick = () => {
 //   // code
-//   const title = document.querySelector("#title").value;
-//   const body = document.querySelector("#body").value;
-//   const post = { userId: num, title, body };
+//   const image = document.querySelector("#choose-file").files[0];
+//   const formData = new FormData();
+//   formData.append("image", image);
+//   formData.append("title", "img 1");
+//   console.log(formData);
 
 //   fetch("https://jsonplaceholder.typicode.com/posts", {
 //     method: "POST",
-//     body: JSON.stringify(post),
-//     headers: { "content-type": "application/JSON" },
+//     body: formData,
+//     headers: { "content-type": "mlutipart/form-data" },
 //   })
 //     .then((res) => {
 //       if (res.ok) {
-//         return res.json();
+//         return res.formData();
 //       } else {
 //         throw new Error(res.status);
 //       }
 //     })
-//     .then((post) => {
-//       // code
-//       console.log(post);
-
-//       const liCreate = `<li>${post.title}</li>`;
-//       ul.innerHTML = liCreate;
-
-//       num++;
+//     .then((data) => {
+//       console.log(data);
 //     })
 //     .catch((err) => {
 //       console.log(err);
@@ -35,27 +42,23 @@ let num = 1;
 // };
 
 btn.onclick = async function () {
-  const title = document.querySelector("#title").value;
-  const body = document.querySelector("#body").value;
-  const post = { userId: num, title, body };
+  const image = document.querySelector("#choose-file").files[0];
+  const formData = new FormData();
+  formData.append("image", image);
+  formData.append("title", "img 1");
+  console.log(formData);
 
   try {
     // code
     const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
       method: "POST",
-      body: JSON.stringify(post),
-      headers: { "content-type": "application/JSON" },
+      body: formData,
+      headers: { "content-type": "mlutipart/form-data" },
     });
 
     if (res.ok) {
-      const post = await res.json();
-
-      console.log(post);
-
-      const liCreate = `<li>${post.title}</li>`;
-      ul.innerHTML = liCreate;
-
-      num++;
+      const data = await res.formData();
+      console.log(data);
     } else {
       throw new Error(res.status);
     }

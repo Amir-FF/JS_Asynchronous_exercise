@@ -11,29 +11,19 @@
       crossorigin="anonymous"
     />
   </head>
-  <body class="m-4">
-    <div id="app">
+  <body>
+    <div id="app" class="m-4">
       <!-- code -->
-      <div class="mb-3 w-25">
-        <label for="title" class="form-label"> Post title </label>
-        <input
-          type="name"
-          class="form-control"
-          id="title"
-          placeholder="title"
-        />
+      <div class="mb-3 w-50">
+        <label for="choose-file" class="form-label"> Select your file. </label>
+        <input type="file" class="form-control" id="choose-file" />
       </div>
 
-      <div class="mb-3 w-25">
-        <label for="body" class="form-label"> Post body </label>
-        <input type="name" class="form-control" id="body" placeholder="body" />
-      </div>
+      <div id="preview"></div>
 
-      <button type="button" class="btn btn-success">submit</button>
+      <br />
 
-      <br /><br />
-
-      <ul></ul>
+      <button type="button" class="btn btn-success">Upload</button>
     </div>
 
     <script src="app.js"></script>
