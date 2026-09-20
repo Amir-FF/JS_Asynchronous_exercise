@@ -1,18 +1,11 @@
 const btn = document.querySelector("button");
-const ul = document.querySelector("ul");
-let num = 1;
 
 // btn.onclick = () => {
 //   // code
 //   const id = document.querySelector("#number").value;
-//   const title = document.querySelector("#title").value;
-//   const body = document.querySelector("#body").value;
-//   const post = { userId: num, title, body };
 
 //   fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
-//     method: "PUT",
-//     body: JSON.stringify(post),
-//     headers: { "content-type": "application/JSON" },
+//     method: "DELETE",
 //   })
 //     .then((res) => {
 //       if (res.ok) {
@@ -21,14 +14,9 @@ let num = 1;
 //         throw new Error(res.status);
 //       }
 //     })
-//     .then((post) => {
+//     .then((data) => {
 //       // code
-//       console.log(post);
-
-//       const liCreate = `<li>${post.title}</li>`;
-//       ul.innerHTML = liCreate;
-
-//       num++;
+//       console.log(data);
 //     })
 //     .catch((err) => {
 //       console.log(err);
@@ -37,30 +25,20 @@ let num = 1;
 
 btn.onclick = async function () {
   const id = document.querySelector("#number").value;
-  const title = document.querySelector("#title").value;
-  const body = document.querySelector("#body").value;
-  const post = { userId: num, title, body };
 
   try {
     // code
     const res = await fetch(
       `https://jsonplaceholder.typicode.com/posts/${id}`,
       {
-        method: "PUT",
-        body: JSON.stringify(post),
-        headers: { "content-type": "application/JSON" },
+        method: "DELETE",
       },
     );
 
     if (res.ok) {
-      const post = await res.json();
+      const data = await res.json();
 
-      console.log(post);
-
-      const liCreate = `<li>${post.title}</li>`;
-      ul.innerHTML = liCreate;
-
-      num++;
+      console.log(data);
     } else {
       throw new Error(res.status);
     }
